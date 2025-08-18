@@ -24,10 +24,10 @@ class JavaTemplateEnrollService
      * @param string|null $serverAddress
      * @param int|null $clientPort
      * @param string $templatePath
-     * @return string Output from Java app
+     * @return array Output from Java app
      * @throws \Exception
      */
-    public function enroll(?string $serverAddress, ?int $clientPort, string $template): string
+    public function enroll(?string $serverAddress, ?int $clientPort, string $template): array
     {
         //JAVA_TEMPLATE_ENROLL_JAR
         $jarPath = config('services.java_template_enroll.jar_path');
