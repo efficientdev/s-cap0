@@ -128,14 +128,38 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
       setLoading(true);
       setStatusMessage('Deleting ...');
 
-      await fetch('/api/delete-photo', {
+      /*await fetch('/api/delete-photo', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
         body: JSON.stringify({ path: imagePath }),
-      });
+      });*/
+
+
+      try {
+        const response = await axios.delete('/api/delete-photo', {
+          path: imagePath,
+        }, {
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
+
+        console.log(response?.data);
+
+        setSuccess('Photo enrolled successfully!');
+      } catch (error) {
+        if (error.response && error.response.status === 422) {
+          setErrors(error.response.data.errors || {});
+        } else {
+          console.error(error);
+        }
+      } finally {
+        setUploading(false);
+        setLoading(false);
+      }
     }
 
     setImageUrl(null);
@@ -152,15 +176,37 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
       setLoading(true);
       setStatusMessage('Deleting ...');
 
-      await fetch('/api/delete-photo', {
+      /*await fetch('/api/delete-photo', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
         body: JSON.stringify({ path: imagePath }),
-      });
-      setLoading(false);
+      });*/
+      try {
+        const response = await axios.delete('/api/delete-photo', {
+          path: imagePath,
+        }, {
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
+
+        console.log(response?.data);
+
+        setSuccess('Photo deleted successfully!');
+      } catch (error) {
+        if (error.response && error.response.status === 422) {
+          setErrors(error.response.data.errors || {});
+        } else {
+          console.error(error);
+        }
+      } finally {
+        setUploading(false);
+        setLoading(false);
+      }
+      //setLoading(false);
 
       window.location.href=route('dashboard');
     }
@@ -176,17 +222,38 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
       setStatusMessage('Enrolling ...');
 
-      const response = await fetch('/api/enroll-photo', {
+      /*const response = await fetch('/api/enroll-photo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
         body: JSON.stringify({ path }),
-      }); 
+      }); */
+      try {
+        const response = await axios.post('/api/enroll-photo', {
+          path: path,
+        }, {
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
+
+        console.log(response?.data);
+
+        setSuccess('Photo enrolled successfully!');
+      } catch (error) {
+        if (error.response && error.response.status === 422) {
+          setErrors(error.response.data.errors || {});
+        } else {
+          console.error(error);
+        }
+      } finally {
+        setUploading(false);
+        setLoading(false);
+      }
 
 
-      setLoading(false);
     }
  
   };
@@ -221,7 +288,7 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
       });
 
 
-    const result = response;//await response.json();
+    const result = response?.data;//await response.json();
     setImageUrl(result.url);
     setImagePath(result.path);
 
@@ -256,6 +323,7 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
   return (
     <div>
+      <OverlaySpinner isVisible={loading} message={statusMessage} />
       <div className="fixed inset-0 bg-gray-400 z-50 flex items-center justify-center">
         
         {/*<div className="absolute z-1 right-3 top-6 w-full flex justify-end gap-4 px-4"> 
