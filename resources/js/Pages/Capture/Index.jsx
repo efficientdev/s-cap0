@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 
+import OverlaySpinner from './OverlaySpinner';
+
 const Index = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -7,6 +9,10 @@ const Index = () => {
   const [captured, setCaptured] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const [stream, setStream] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('Loading...');
+
 
   const [imagePath, setImagePath] = useState(null); // backend relative path for deletion
 
@@ -75,6 +81,10 @@ const Index = () => {
   };
   const retakePhoto = async () => {
     if (imagePath) {
+
+      setLoading(true);
+      setStatusMessage('Deleting ...');
+
       await fetch('/api/delete-photo', {
         method: 'DELETE',
         headers: {
@@ -88,12 +98,17 @@ const Index = () => {
     setImageUrl(null);
     setImagePath(null);
     setCaptured(false);
+    setLoading(false);
     //startCamera();
     startCamera(devices[currentDeviceIndex].deviceId);
   };
 
   const retakePhotoAndClose = async () => {
     if (imagePath) {
+
+      setLoading(true);
+      setStatusMessage('Deleting ...');
+
       await fetch('/api/delete-photo', {
         method: 'DELETE',
         headers: {
@@ -102,6 +117,8 @@ const Index = () => {
         },
         body: JSON.stringify({ path: imagePath }),
       });
+      setLoading(false);
+
       window.location.href=route('dashboard');
     }
  
@@ -110,7 +127,12 @@ const Index = () => {
 
   const enrollCapture = async (path) => {
     //validating
+
+
     if (path) {
+
+      setStatusMessage('Enrolling ...');
+
       const response = await fetch('/api/enroll-photo', {
         method: 'POST',
         headers: {
@@ -119,6 +141,9 @@ const Index = () => {
         },
         body: JSON.stringify({ path }),
       }); 
+
+
+      setLoading(false);
     }
  
   };
@@ -128,6 +153,10 @@ const Index = () => {
   const uploadPhoto = async (blob) => {
     const formData = new FormData();
     formData.append('photo', blob, 'webcam.jpg');
+
+    setLoading(true);
+    setStatusMessage('Processing ...');
+
 
     const response = await fetch('/api/upload-photo', {
       method: 'POST',
@@ -140,6 +169,8 @@ const Index = () => {
     const result = await response.json();
     setImageUrl(result.url);
     setImagePath(result.path);
+
+    //setLoading(false);
 
     await enrollCapture(result.path);
 

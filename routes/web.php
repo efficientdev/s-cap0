@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
-use App\Http\Controllers\CaptureCtrl;
+use App\Http\Controllers\{CaptureCtrl,CaptureLogCtrl};
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -23,6 +23,8 @@ Route::get('/dashboard', function () {
 
 
 Route::get('/capture', [CaptureCtrl::class,'index'])->middleware(['auth'])->name('capture');
+
+Route::get('/capturelog', [CaptureLogCtrl::class,'index'])->middleware(['auth'])->name('capturel');
 
 
 Route::middleware('auth')->group(function () {
