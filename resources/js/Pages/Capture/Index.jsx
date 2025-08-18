@@ -220,8 +220,8 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
         },
       });
 
-      
-    const result = await response.json();
+
+    const result = response;//await response.json();
     setImageUrl(result.url);
     setImagePath(result.path);
 
