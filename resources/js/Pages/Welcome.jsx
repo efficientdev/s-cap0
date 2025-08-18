@@ -61,7 +61,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
           title="Edo State Government"
         />
         <h1 className="text-4xl font-semibold mb-2">Edo State Ministry of Education</h1>
-        <div className="text-2xl font-semibold mb-6">Model School Registration portal</div>
+        <div className="text-2xl font-semibold mb-6">Student Capture portal</div>
         <div className="space-x-4 text-sm uppercase tracking-wider mb-6">
         <Link
             href={route('login')}
