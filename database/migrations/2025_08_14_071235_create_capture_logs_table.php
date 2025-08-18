@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('subject_id');
             $table->text('capture_path');
-            $table->text('status')->nullable()->default('pending');
-            $table->longText('notes')->nullable()->default('pending');
+            $table->text('status')->nullable();//->default('pending');
+            $table->longText('notes')->nullable();//->default('pending');
             $table->timestamps();
         });
     }
