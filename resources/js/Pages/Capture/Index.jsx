@@ -170,9 +170,11 @@ const Index = () => {
     setImageUrl(result.url);
     setImagePath(result.path);
 
+    console.log(result);
+
     //setLoading(false);
 
-    await enrollCapture(result.path);
+    await enrollCapture(result.extpath);
 
     //setImagePath(result.url); // store full URL for deletion
   };

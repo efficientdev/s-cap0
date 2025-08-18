@@ -52,8 +52,8 @@ class CaptureCtrl extends Controller
             'url' => asset("storage/{$path}"), 
     		'path' => $path, // <--- include relative path for deletion
     		'extpath' => $path2,
-    		'status' => $status,
-    		'sid' => $sid
+    		//'status' => $status,
+    		//'sid' => $sid
         ]);
     }
 
