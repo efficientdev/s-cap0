@@ -13,6 +13,7 @@ use Inertia\Response;
 use App\Models\CaptureLog;
 use Illuminate\Support\Facades\Storage;
 use App\IdUtils\{IdStudent,EnrolStudent};
+use Str;
 
 class CaptureCtrl extends Controller
 {
