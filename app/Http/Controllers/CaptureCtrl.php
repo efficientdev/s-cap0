@@ -78,7 +78,7 @@ class CaptureCtrl extends Controller
         $service = new \App\Services\JavaFaceEnrollService2();
         $result = $service->enroll($imagePath,$templateId);
 
-        $c=Capture::find($cl->id);
+        $c=CaptureLog::find($cl->id);
         $c->status="success";
         $outputs=[];
         $outputs[]=$result;
