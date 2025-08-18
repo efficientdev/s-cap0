@@ -220,17 +220,7 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
         },
       });
 
-      setSuccess('Photo uploaded successfully!');
-    } catch (error) {
-      if (error.response && error.response.status === 422) {
-        setErrors(error.response.data.errors || {});
-      } else {
-        console.error(error);
-      }
-    } finally {
-      setUploading(false);
-    }
-
+      
     const result = await response.json();
     setImageUrl(result.url);
     setImagePath(result.path);
@@ -242,6 +232,18 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
     await enrollCapture(result.extpath);
 
     //setImagePath(result.url); // store full URL for deletion
+
+      setSuccess('Photo uploaded successfully!');
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        setErrors(error.response.data.errors || {});
+      } else {
+        console.error(error);
+      }
+    } finally {
+      setUploading(false);
+    }
+
   };
 
   
