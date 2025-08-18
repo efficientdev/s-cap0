@@ -1,6 +1,23 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 import OverlaySpinner from './OverlaySpinner';
+import { useForm } from '@inertiajs/react';
+
+import axios from 'axios'; 
+
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+const token = document.head.querySelector('meta[name="csrf-token"]');
+
+console.log(token);
+if (token) {
+  axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+  console.error('CSRF token not found');
+}
+axios.defaults.withCredentials = true;
+
+
 
 const Index = () => {
   const videoRef = useRef(null);
@@ -12,6 +29,12 @@ const Index = () => {
 
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('Loading...');
+
+
+  const [uploading, setUploading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState('');
+
 
 
   const [imagePath, setImagePath] = useState(null); // backend relative path for deletion
@@ -26,6 +49,26 @@ const Index = () => {
       console.log(videoDevices);
       setDevices(videoDevices);
     });
+
+
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+const token = document.head.querySelector('meta[name="csrf-token"]');
+
+console.log(token);
+if (token) {
+  axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+  console.error('CSRF token not found');
+}
+axios.defaults.withCredentials = true;
+
+(async ()=>{
+
+await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
+
+})();
+
   }, []);
 
   // Start webcam
@@ -158,13 +201,35 @@ const Index = () => {
     setStatusMessage('Processing ...');
 
 
+    setUploading(true);
+    setErrors({});
+    setSuccess('');
+    /*
     const response = await fetch('/api/upload-photo', {
       method: 'POST',
       body: formData,
       headers: {
         Accept: 'application/json',
       },
-    });
+    });*/
+    try {
+      const response = await axios.post('/api/upload-photo', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+        },
+      });
+
+      setSuccess('Photo uploaded successfully!');
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        setErrors(error.response.data.errors || {});
+      } else {
+        console.error(error);
+      }
+    } finally {
+      setUploading(false);
+    }
 
     const result = await response.json();
     setImageUrl(result.url);

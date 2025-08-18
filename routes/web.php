@@ -5,16 +5,28 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Models\User;
 
 use App\Http\Controllers\{CaptureCtrl,CaptureLogCtrl};
 
 Route::get('/', function () {
+    dd(User::all());
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+
+//->prefix('v1')
+Route::middleware(['auth'])->prefix('api')->group(function () {
+        
+    Route::post('/upload-photo', [CaptureCtrl::class, 'store']);//->middleware(['auth:sanctum']);
+    Route::post('/enroll-photo', [CaptureCtrl::class, 'enroll']);//->middleware(['auth:sanctum']);
+    Route::delete('/delete-photo', [CaptureCtrl::class, 'destroy']);//->middleware(['auth:sanctum']);
+
 });
 
 Route::get('/dashboard', function () {
