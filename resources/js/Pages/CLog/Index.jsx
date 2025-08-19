@@ -1,7 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import React, { useRef, useState, useEffect } from 'react';
 
 export default function Index({report}) {
+
+    useEffect(()=>{
+        console.log({report});
+    },[report]);
+
     return (
         <AuthenticatedLayout
             header={
@@ -17,8 +23,23 @@ export default function Index({report}) {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             Capture Logs
+<hr/>
+<>
+{report?.map((item,i)=>{
+    return (<div key={i}>
 
-                            {JSON.stringify(report,null,2)}
+        {item?.notes?.map((nitem,ni)=>{
+            return (<div key={ni}>
+            {JSON.stringify(nitem,null,2)}
+            <hr/>
+            </div>);
+        })}
+
+    </div>);
+})}
+</>
+
+                            {/*JSON.stringify(report,null,2)*/}
                         </div>
                     </div>
                 </div>

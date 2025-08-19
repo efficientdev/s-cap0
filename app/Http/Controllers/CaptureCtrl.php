@@ -75,8 +75,14 @@ class CaptureCtrl extends Controller
             //'status'
         ]);
 
-        $service = new \App\Services\JavaFaceEnrollService2();
+        /*$service = new \App\Services\JavaFaceEnrollService2();
         $result = $service->enroll($imagePath,$templateId);
+        */
+
+        $service = new \App\Services\JavaFaceEnrollService3();
+        $result = $service->enroll(
+                $request->input('server')??null,
+                $request->input('client_port')??null,$imagePath,$templateId);
 
         $c=CaptureLog::find($cl->id);
         
