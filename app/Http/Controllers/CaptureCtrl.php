@@ -87,50 +87,52 @@ class CaptureCtrl extends Controller
         $c=CaptureLog::find($cl->id);
         
         $outputs=[];
-        if ($result['success']) {
-            # code...
+        if ($result['success']) { 
             $c->status="success";
+
+            try {
+                $service2 = new \App\Services\JavaTemplateEnrollService();
+                $output = $service2->enroll(
+                    $request->input('server')??null,
+                    $request->input('client_port')??null,
+                    $templateId
+                );
+
+
+                if ($output['success']) { 
+                    $c->status="success";
+                }else{
+                    $c->status="failed";
+                }
+
+                $outputs[]=$output;
+                $c->notes=$outputs;
+                $c->save();
+
+                return response()->json([
+                    'status' => 'success',
+                    'output' => $output
+                ]);
+            } catch (\Exception $e) {
+
+                $outputs[]=$e->getMessage();
+                $c->notes=$outputs;
+                $c->save();
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ]);
+                //], 500);
+            }  
+
         }else{
-            $c->status="failed";
-        }
-        $outputs[]=$result;
-
-
-        try {
-            $service2 = new \App\Services\JavaTemplateEnrollService();
-            $output = $service2->enroll(
-                $request->input('server')??null,
-                $request->input('client_port')??null,
-                $templateId
-            );
-
-
-            if ($output['success']) {
-                # code...
-                $c->status="success";
-            }else{
-                $c->status="failed";
-            }
-
-            $outputs[]=$output;
-            $c->notes=json_encode($outputs);
+            //$c->status="failed";
+            $outputs[]=$result;
+            $c->notes=$outputs;
             $c->save();
+        }
 
-            return response()->json([
-                'status' => 'success',
-                'output' => $output
-            ]);
-        } catch (\Exception $e) {
-
-            $outputs[]=$e->getMessage();
-            $c->notes=json_encode($outputs);$c->save();
-
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ]);
-            //], 500);
-        }  
 
         return response()->json($result);
 
