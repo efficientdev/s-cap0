@@ -13,6 +13,11 @@ class CaptureLog extends Model
         'status','notes','user_id'
     ];
 
+    protected $casts = [ 
+        //'status' => 'array', 
+        'notes' => 'array', 
+    ];
+
     /*
             $table->text('subject_id');
             $table->text('capture_path');

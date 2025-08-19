@@ -79,8 +79,14 @@ class CaptureCtrl extends Controller
         $result = $service->enroll($imagePath,$templateId);
 
         $c=CaptureLog::find($cl->id);
-        $c->status="success";
+        
         $outputs=[];
+        if ($result['success']) {
+            # code...
+            $c->status="success";
+        }else{
+            $c->status="failed";
+        }
         $outputs[]=$result;
 
 
@@ -92,8 +98,17 @@ class CaptureCtrl extends Controller
                 $templateId
             );
 
+
+            if ($output['success']) {
+                # code...
+                $c->status="success";
+            }else{
+                $c->status="failed";
+            }
+
             $outputs[]=$output;
-            $c->notes=json_encode($outputs);$c->save();
+            $c->notes=json_encode($outputs);
+            $c->save();
 
             return response()->json([
                 'status' => 'success',
