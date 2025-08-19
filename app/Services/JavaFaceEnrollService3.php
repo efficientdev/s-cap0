@@ -69,7 +69,7 @@ class JavaFaceEnrollService3
         $cmd = [
             'java',
             '-jar',
-            $this->jarPath,
+            $jarPath,
             ...explode(' ', trim("$serverArg $clientArg $inputArg $templateArg"))
         ];
 
