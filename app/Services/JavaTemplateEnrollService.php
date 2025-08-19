@@ -62,7 +62,7 @@ class JavaTemplateEnrollService
         $cmd = [
             'java',
             '-jar',
-            $this->jarPath,
+            $jarPath,
             ...explode(' ', trim("$serverArg $clientArg $templateArg"))
         ];
 

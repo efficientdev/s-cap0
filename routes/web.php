@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Http\Controllers\{CaptureCtrl,CaptureLogCtrl};
 
 Route::get('/', function () {
-    dd(User::all());
+    //dd(User::all());
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),

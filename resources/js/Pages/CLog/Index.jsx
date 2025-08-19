@@ -28,7 +28,7 @@ export default function Index({report}) {
 {report?.map((item,i)=>{
     return (<div key={i}>
 
-        {item?.notes?.map((nitem,ni)=>{
+        {Array.isArray(item?.notes) && item?.notes?.map((nitem,ni)=>{
             return (<div key={ni}>
             {JSON.stringify(nitem,null,2)}
             <hr/>
