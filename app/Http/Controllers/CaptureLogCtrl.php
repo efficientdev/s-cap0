@@ -18,7 +18,7 @@ class CaptureLogCtrl extends Controller
 {
 
 	public function index(Request $request){
-		$data['report']=CaptureLog::where('user_id',$request->user()->id)->latest()->paginate(20);
+		$data['report']=CaptureLog::where('user_id',$request->user()->id)->latest()->paginate(200);
 		return Inertia::render('CLog/Index', $data);
 	}
 

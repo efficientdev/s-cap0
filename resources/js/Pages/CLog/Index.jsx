@@ -25,7 +25,7 @@ export default function Index({report}) {
                             Capture Logs
 <hr/>
 <>
-{report?.map((item,i)=>{
+{report?.data?.map((item,i)=>{
     return (<div key={i}>
 
         {Array.isArray(item?.notes) && item?.notes?.map((nitem,ni)=>{
