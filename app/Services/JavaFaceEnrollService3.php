@@ -63,7 +63,7 @@ class JavaFaceEnrollService3
         $serverArg = $serverAddress ? "-s {$serverAddress}:{$this->defaultServerPort}" : '';
         $clientPort = $clientPort ?? $this->defaultClientPort;
         $clientArg = "-c {$clientPort}";
-        $inputArg = "-i {$imagePath}";
+        $inputArg = "-i {$outPath}{$imagePath}";
         $templateArg = "-t {$templatePath}";
 //{$outPath}
         //ls -l /var/www/html/alive/cdn/Lib/Linux_x86_64/libNCore.so
