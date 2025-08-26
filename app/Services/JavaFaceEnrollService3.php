@@ -15,7 +15,7 @@ class JavaFaceEnrollService3
 
     public function __construct()
     {
-        $this->jarPath = storage_path('app/java/enroll-to-server.jar');
+        //$this->jarPath = storage_path('app/java/enroll-to-server.jar');
     }
 
     /**
@@ -66,12 +66,24 @@ class JavaFaceEnrollService3
         $inputArg = "-i {$imagePath}";
         $templateArg = "-t {$outPath}{$templatePath}";
 
+        //ls -l /var/www/html/alive/cdn/Lib/Linux_x86_64/libNCore.so
+
         $cmd = [
             'java',
+            '-Djava.library.path=/var/www/html/alive/cdn/Lib/Linux_x86_64',
+            '-Djava.security.debug=properties',
             '-jar',
             $jarPath,
             ...explode(' ', trim("$serverArg $clientArg $inputArg $templateArg"))
         ];
+
+        /*
+            
+            java -jar create-face-template-on-server.jar -s 127.0.0.1:24932 -c 25452 -i photo.jpg -t subject1
+
+            java -jar enroll-face-from-image.jar photo.jpg template1
+
+        */
 
         $process = new Process($cmd);
         $process->run();
@@ -86,6 +98,7 @@ class JavaFaceEnrollService3
 
         if (!$process->isSuccessful()) {
             return [
+                'cmd'=>$cmd,
                 'success' => false,
                 'message' => 'Java process failed: ' . $process->getErrorOutput(),
                 'outputTemplatePath' => null,
@@ -93,6 +106,7 @@ class JavaFaceEnrollService3
         }
 
         return [
+            'cmd'=>$cmd,
             'success' => true,
             'message' => 'Enrollment successful.',
             'verbose' => $outputTemplate,

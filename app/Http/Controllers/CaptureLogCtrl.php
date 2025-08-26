@@ -21,5 +21,11 @@ class CaptureLogCtrl extends Controller
 		$data['report']=CaptureLog::where('user_id',$request->user()->id)->latest()->paginate(200);
 		return Inertia::render('CLog/Index', $data);
 	}
+	public function show(Request $request,$id){
+		//use for clearing for now
+		$data['report']=CaptureLog::where('user_id',$request->user()->id)->delete();
+		$data['report']=CaptureLog::where('user_id',$request->user()->id)->latest()->paginate(200);
+		return Inertia::render('CLog/Index', $data);
+	}
 
 }

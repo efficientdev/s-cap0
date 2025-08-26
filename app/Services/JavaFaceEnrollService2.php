@@ -45,11 +45,11 @@ class JavaFaceEnrollService2
         $process = new Process($command);
         $process->run();
 
-        Log::info("Running Java enrollment process", [
+        /*Log::info("Running Java enrollment process", [
             'command' => implode(' ', $command),
             'output' => $process->getOutput(),
             'error' => $process->getErrorOutput(),
-        ]);
+        ]);*/
 
         if (!$process->isSuccessful()) {
             return [
