@@ -38,6 +38,8 @@ Route::get('/capture', [CaptureCtrl::class,'index'])->middleware(['auth'])->name
 
 Route::get('/capturelog', [CaptureLogCtrl::class,'index'])->middleware(['auth'])->name('capturel');
 
+Route::get('/capturelog/{id}', [CaptureLogCtrl::class,'show'])->middleware(['auth'])->name('capturel2');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
