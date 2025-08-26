@@ -33,7 +33,7 @@ class JavaTemplateEnrollService
         $jarPath = config('services.java_template_enroll.jar_path');
         $outPath = config('services.java_template_enroll.out_path');
 
-        $templatePath=$templatePath=$outPath.$template;
+        $outputTemplate=$templatePath=$outPath.$template;
 
         if (!file_exists($jarPath)) {
             return [
