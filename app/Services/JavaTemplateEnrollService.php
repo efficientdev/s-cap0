@@ -33,11 +33,6 @@ class JavaTemplateEnrollService
         $jarPath = config('services.java_template_enroll.jar_path');
         $outPath = config('services.java_template_enroll.out_path');
 
-        //overwrite
-        $jarPath ='enroll-to-server.jar';
-
-        $templatePath=$outPath.$template;
-        $outputTemplate=$templatePath;
 
         if (!file_exists($jarPath)) {
             return [
@@ -45,14 +40,15 @@ class JavaTemplateEnrollService
                 'message' => "Java JAR not found at path: $jarPath", 
             ];
         } 
+        //overwrite
+        $jarPath ='enroll-to-server.jar';
 
 
-        if (!file_exists($templatePath)) {
-            return [
-                'success' => false,
-                'message' => "Template file not found at: {$templatePath}", 
-            ];
-        } 
+        $templatePath=$outPath.$template;
+        $outputTemplate=$templatePath;
+
+        //overwrite
+        $templatePath=$template;
 
         $serverArg = $serverAddress ? "-s {$serverAddress}:{$this->defaultServerPort}" : '';
         $clientPort = $clientPort ?? $this->defaultClientPort;
@@ -67,6 +63,14 @@ class JavaTemplateEnrollService
             $jarPath,
             ...explode(' ', trim("$serverArg $clientArg $templateArg"))
         ];
+
+        if (!file_exists($templatePath)) {
+            return [
+                'cmd'=>implode(' ',$cmd),
+                'success' => false,
+                'message' => "Template file not found at: {$templatePath}", 
+            ];
+        } 
 
         $process = new Process($cmd,$outPath);
         $process->setEnv([
