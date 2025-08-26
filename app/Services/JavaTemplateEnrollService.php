@@ -48,12 +48,12 @@ class JavaTemplateEnrollService
         $outputTemplate=$templatePath;
 
         //overwrite
-        $templatePath=$template;
+        //$templatePath=$template;
 
         $serverArg = $serverAddress ? "-s {$serverAddress}:{$this->defaultServerPort}" : '';
         $clientPort = $clientPort ?? $this->defaultClientPort;
         $clientArg = "-c {$clientPort}";
-        $templateArg = "-t {$templatePath}";
+        $templateArg = "-t {$template}";
 
         $cmd = [
             '/usr/bin/java',
