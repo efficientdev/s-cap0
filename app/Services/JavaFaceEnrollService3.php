@@ -47,19 +47,7 @@ class JavaFaceEnrollService3
                 'message' => "Java JAR not found at path: $jarPath", 
             ];
         }
-
-
-/*
-        if (!file_exists($templatePath)) {
-            return [
-                'success' => false,
-                'message' => "Template file not found at: {$templatePath}", 
-            ];
-        } 
-        if (!file_exists($templatePath)) {
-            throw new \Exception("Template file not found at: {$templatePath}");
-        }
-*/
+ 
         $serverArg = $serverAddress ? "-s {$serverAddress}:{$this->defaultServerPort}" : '';
         $clientPort = $clientPort ?? $this->defaultClientPort;
         $clientArg = "-c {$clientPort}";
@@ -76,14 +64,7 @@ class JavaFaceEnrollService3
             $jarPath,
             ...explode(' ', trim("$serverArg $clientArg $inputArg $templateArg"))
         ];
-
-        /*
-            
-            java -jar create-face-template-on-server.jar -s 127.0.0.1:24932 -c 25452 -i photo.jpg -t subject1
-
-            java -jar enroll-face-from-image.jar photo.jpg template1
-
-        */
+ 
 
         $process = new Process($cmd);
 

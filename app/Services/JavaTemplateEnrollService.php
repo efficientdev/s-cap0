@@ -68,7 +68,9 @@ class JavaTemplateEnrollService
             return [
                 'cmd'=>implode(' ',$cmd),
                 'success' => false,
-                'message' => "Template file not found at: {$templatePath}", 
+                'message' => "Template file not found at: {$templatePath}",
+                'error' => "Template file not found at: {$templatePath}", 
+                'verbose' => "Template file not found at: {$templatePath}", 
             ];
         } 
 
@@ -79,31 +81,28 @@ class JavaTemplateEnrollService
             'JAVA_HOME' => '/usr/bin/java',  
         ]);
         $process->run();
-
-        /*if (!$process->isSuccessful()) {
-            Log::error("Java app failed: " . $process->getErrorOutput());
-            throw new ProcessFailedException($process);
-        }
-
-        return $process->getOutput();*/
-
+        
+        $tee=explode('Status:', $process->getOutput());
 
         if (!$process->isSuccessful()) {
             return [
                 'cmd'=>implode(' ',$cmd),
                 'success' => false,
-                'message' => 'Java process failed: ' . $process->getErrorOutput(),
-                'message2'=>$process->getOutput(),
+                'status'=>$tee[1],
+                'message' => 'Enrollment unsuccessful',
+                'error'=> $process->getErrorOutput(),
+                'verbose'=>$process->getOutput(),
                 'outputTemplatePath' => null,
             ];
         }
 
         return [
-                'cmd'=>implode(' ',$cmd),
+            'cmd'=>implode(' ',$cmd),
             'success' => true,
+            'status'=>$tee[1],
             'message' => 'Enrollment successful.', 
-                'message2'=>$process->getOutput(),
-            'verbose' => $outputTemplate,
+            'verbose'=>$process->getOutput(),
+            'outputTemplatePath' => $outputTemplate,
         ];
     }
 }
