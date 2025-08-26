@@ -109,6 +109,7 @@ class JavaFaceEnrollService3
                 'cmd'=>implode(' ',$cmd),
                 'success' => false,
                 'message' => 'Java process failed: ' . $process->getErrorOutput(),
+                'message2'=>$process->getOutput(),
                 'outputTemplatePath' => null,
             ];
         }
@@ -117,6 +118,7 @@ class JavaFaceEnrollService3
             'cmd'=>$cmd,
             'success' => true,
             'message' => 'Enrollment successful.',
+                'message2'=>$process->getOutput(),
             'verbose' => $outputTemplate,
         ];
     }

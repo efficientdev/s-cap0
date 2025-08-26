@@ -33,7 +33,8 @@ class JavaTemplateEnrollService
         $jarPath = config('services.java_template_enroll.jar_path');
         $outPath = config('services.java_template_enroll.out_path');
 
-        $outputTemplate=$templatePath=$outPath.$template;
+//$outPath.
+        $outputTemplate=$templatePath=$template;
 
         if (!file_exists($jarPath)) {
             return [
@@ -89,6 +90,7 @@ class JavaTemplateEnrollService
                 'cmd'=>implode(' ',$cmd),
                 'success' => false,
                 'message' => 'Java process failed: ' . $process->getErrorOutput(),
+                'message2'=>$process->getOutput(),
                 'outputTemplatePath' => null,
             ];
         }
@@ -96,8 +98,8 @@ class JavaTemplateEnrollService
         return [
                 'cmd'=>implode(' ',$cmd),
             'success' => true,
-            'message' => 'Enrollment successful.',
-                'message2' => 'Java process failed: ' . $process->getErrorOutput(),
+            'message' => 'Enrollment successful.', 
+                'message2'=>$process->getOutput(),
             'verbose' => $outputTemplate,
         ];
     }
