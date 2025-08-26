@@ -64,14 +64,14 @@ class JavaFaceEnrollService3
         $clientPort = $clientPort ?? $this->defaultClientPort;
         $clientArg = "-c {$clientPort}";
         $inputArg = "-i {$imagePath}";
-        $templateArg = "-t {$outPath}{$templatePath}";
-
+        $templateArg = "-t {$templatePath}";
+//{$outPath}
         //ls -l /var/www/html/alive/cdn/Lib/Linux_x86_64/libNCore.so
 
         $cmd = [
             'java',
             '-Djava.library.path=/var/www/html/alive/cdn/Lib/Linux_x86_64',
-            '-Djava.security.debug=properties',
+            //'-Djava.security.debug=properties',
             '-jar',
             $jarPath,
             ...explode(' ', trim("$serverArg $clientArg $inputArg $templateArg"))
@@ -95,10 +95,10 @@ class JavaFaceEnrollService3
 
         return $process->getOutput();*/
 
-
+//implode(' ', pieces)
         if (!$process->isSuccessful()) {
             return [
-                'cmd'=>$cmd,
+                'cmd'=>implode(' ',$cmd),
                 'success' => false,
                 'message' => 'Java process failed: ' . $process->getErrorOutput(),
                 'outputTemplatePath' => null,
