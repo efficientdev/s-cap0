@@ -22,7 +22,8 @@ Route::get('/', function () {
 
 Route::get('/ev', function () {
     //dd(User::all());
-    dd(echo shell_exec('env'));
+    echo shell_exec('env');
+    //dd();
 });
 
 

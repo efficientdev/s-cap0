@@ -69,7 +69,7 @@ class JavaFaceEnrollService3
         //ls -l /var/www/html/alive/cdn/Lib/Linux_x86_64/libNCore.so
 
         $cmd = [
-            'java',
+            '/usr/bin/java',
             '-Djava.library.path=/var/www/html/alive/cdn/Lib/Linux_x86_64',
             //'-Djava.security.debug=properties',
             '-jar',
@@ -86,6 +86,14 @@ class JavaFaceEnrollService3
         */
 
         $process = new Process($cmd);
+
+        $process->setEnv([
+            'PATH' => '/usr/bin:/bin',
+            'LD_LIBRARY_PATH'=>'/var/www/html/alive/cdn/Lib/Linux_x86_64',
+            'JAVA_HOME' => '/usr/bin/java',  
+        ]);
+
+
         $process->run();
 
         /*if (!$process->isSuccessful()) {
