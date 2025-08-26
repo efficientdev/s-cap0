@@ -33,8 +33,11 @@ class JavaTemplateEnrollService
         $jarPath = config('services.java_template_enroll.jar_path');
         $outPath = config('services.java_template_enroll.out_path');
 
-//$outPath.
-        $outputTemplate=$templatePath=$template;
+        //overwrite
+        $jarPath ='enroll-to-server.jar';
+
+        $templatePath=$outPath.$template;
+        $outputTemplate=$templatePath;
 
         if (!file_exists($jarPath)) {
             return [
@@ -50,11 +53,7 @@ class JavaTemplateEnrollService
                 'message' => "Template file not found at: {$templatePath}", 
             ];
         } 
-/*
-        if (!file_exists($templatePath)) {
-            throw new \Exception("Template file not found at: {$templatePath}");
-        }
-*/
+
         $serverArg = $serverAddress ? "-s {$serverAddress}:{$this->defaultServerPort}" : '';
         $clientPort = $clientPort ?? $this->defaultClientPort;
         $clientArg = "-c {$clientPort}";
@@ -62,14 +61,14 @@ class JavaTemplateEnrollService
 
         $cmd = [
             '/usr/bin/java',
-            '-Djava.library.path=/var/www/html/alive/cdn/Lib/Linux_x86_64',
+            //'-Djava.library.path=/var/www/html/alive/cdn/Lib/Linux_x86_64',
             //'-Djava.security.debug=properties',
             '-jar',
             $jarPath,
             ...explode(' ', trim("$serverArg $clientArg $templateArg"))
         ];
 
-        $process = new Process($cmd);
+        $process = new Process($cmd,$outPath);
         $process->setEnv([
             'PATH' => '/usr/bin:/bin',
             'LD_LIBRARY_PATH'=>'/var/www/html/alive/cdn/Lib/Linux_x86_64',
