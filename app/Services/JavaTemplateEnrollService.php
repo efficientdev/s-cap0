@@ -33,7 +33,7 @@ class JavaTemplateEnrollService
         $jarPath = config('services.java_template_enroll.jar_path');
         $outPath = config('services.java_template_enroll.out_path');
 
-        $templatePath=$outPath.$template;
+        $templatePath=$templatePath=$outPath.$template;
 
         if (!file_exists($jarPath)) {
             return [
@@ -57,16 +57,23 @@ class JavaTemplateEnrollService
         $serverArg = $serverAddress ? "-s {$serverAddress}:{$this->defaultServerPort}" : '';
         $clientPort = $clientPort ?? $this->defaultClientPort;
         $clientArg = "-c {$clientPort}";
-        $templateArg = "-t {$outPath}{$templatePath}";
+        $templateArg = "-t {$templatePath}";
 
         $cmd = [
-            'java',
+            '/usr/bin/java',
+            '-Djava.library.path=/var/www/html/alive/cdn/Lib/Linux_x86_64',
+            //'-Djava.security.debug=properties',
             '-jar',
             $jarPath,
             ...explode(' ', trim("$serverArg $clientArg $templateArg"))
         ];
 
         $process = new Process($cmd);
+        $process->setEnv([
+            'PATH' => '/usr/bin:/bin',
+            'LD_LIBRARY_PATH'=>'/var/www/html/alive/cdn/Lib/Linux_x86_64',
+            'JAVA_HOME' => '/usr/bin/java',  
+        ]);
         $process->run();
 
         /*if (!$process->isSuccessful()) {
@@ -79,6 +86,7 @@ class JavaTemplateEnrollService
 
         if (!$process->isSuccessful()) {
             return [
+                'cmd'=>implode(' ',$cmd),
                 'success' => false,
                 'message' => 'Java process failed: ' . $process->getErrorOutput(),
                 'outputTemplatePath' => null,
@@ -86,8 +94,10 @@ class JavaTemplateEnrollService
         }
 
         return [
+                'cmd'=>implode(' ',$cmd),
             'success' => true,
             'message' => 'Enrollment successful.',
+                'message2' => 'Java process failed: ' . $process->getErrorOutput(),
             'verbose' => $outputTemplate,
         ];
     }
