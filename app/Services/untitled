@@ -1,0 +1,4 @@
+
+java -Djava.library.path=/var/www/html/c/Lib/Linux_x86_64 -jar /var/www/html/c/Bin/create-face-template-on-server.jar -c 25452 -i /var/www/html/c/Bin/T5A3x0490VhPj47GvALPlHRRXvFISScpQMY8cC4J.jpg -t /var/www/html/c/Bin/5eb8985d3f90491a96a6e4aef73b68d0
+
+running the above command using $process = new Process($cmd); fails, but running from terminal doesnt

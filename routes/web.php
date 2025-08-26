@@ -20,6 +20,12 @@ Route::get('/', function () {
 });
 
 
+Route::get('/ev', function () {
+    //dd(User::all());
+    dd(echo shell_exec('env'));
+});
+
+
 //->prefix('v1')
 Route::middleware(['auth'])->prefix('api')->group(function () {
         
