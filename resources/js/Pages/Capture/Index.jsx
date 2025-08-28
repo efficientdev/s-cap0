@@ -249,23 +249,24 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
         if(response?.data?.output?.success && response?.data?.record){
           //redirect to id
           let report=response?.data?.record;
-          
-          window.location.href=route(
-                                                            'records.edit',
-                                                            {
-                                                                id: report?.id,
-                                                            },
-                                                        );
+
+          setStatusMessage("Enrollment successful");
+
+          window.location.href=route('records.edit',{id: report?.id});
+        }else{
+
+          setStatusMessage(response?.data?.message);
         }
-
-        /*
-return response()->json([
-                    'status' => 'success',
-                    'output' => $output
-                ]);
-        */
-
+  
         setSuccess('Photo enrolled successfully!');
+
+        setTimeout(()=>{
+
+          setUploading(false);
+          setLoading(false);
+        
+        },4000);
+
       } catch (error) {
         if (error.response && error.response.status === 422) {
           setErrors(error.response.data.errors || {});
