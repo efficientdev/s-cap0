@@ -32,7 +32,7 @@ const Index = () => {
   const [streaming, setStreaming] = useState(false);
   const [stream, setStream] = useState(null);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('Loading...');
 
 
