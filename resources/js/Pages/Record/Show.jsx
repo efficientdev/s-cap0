@@ -1,123 +1,118 @@
+import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
-export default function ShowRecord({ sl, report }) {
-    function Fi() {
-        let state1 = sl[report?.meta?.state_id];
+function RecordLocation({ report, sl }) {
+    const state = sl[report?.meta?.state_id];
+    const lga = state?.lgas?.[report?.meta?.lga_id];
 
-        let lgas = state1?.lgas;
-
-        return (
-            <div>
-                State: {state1?.state_name}
-                <br />
-                LGA: {lgas[report?.meta?.lga_id]}
-                <br />
+    return (
+        <div className="grid gap-2 mt-4 text-sm text-gray-800">
+            <div className="font-semibold border-b pb-1">Origin</div>
+            <div className="flex gap-4 flex-wrap">
+                <div>State: {state?.state_name || 'N/A'}</div>
+                <div>LGA: {lga || 'N/A'}</div>
             </div>
-        );
-    }
-    const setData = (c, s) => {};
+        </div>
+    );
+}
+
+export default function ShowRecord({ sl, report }) {
+    const meta = report?.meta;
 
     return (
         <AuthenticatedLayout
             header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    {report?.meta?.last_name} {report?.meta?.first_name} -
-                    Student Record
+                <h2 className="text-xl font-semibold text-gray-800">
+                    {meta?.last_name} {meta?.first_name} – Student Record
                 </h2>
             }
         >
             <Head title="Student Record" />
 
             <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
+                        <div className="p-6 text-gray-900 space-y-8">
+
+                            {/* Photo */}
                             <div className="flex justify-end">
-                                <img
-                                    className="h-10 w-10"
-                                    src={report?.photo}
-                                />
+                                {report?.photo ? (
+                                    <img
+                                        src={report.photo}
+                                        alt="Student"
+                                        className="w-20 h-20 object-cover rounded border"
+                                    />
+                                ) : (
+                                    <div className="text-gray-400 italic">
+                                        No Photo
+                                    </div>
+                                )}
                             </div>
 
-                            <div className="grid gap-5 md:grid-cols-3">
-                                <div className="grid">
-                                    <label>First name</label>
-                                    <label>{report?.meta?.first_name}</label>
+                            {/* Bio Info */}
+                            <div>
+                                <div className="text-lg font-semibold mb-2 border-b pb-1">
+                                    Bio Information
                                 </div>
-
-                                <div className="grid">
-                                    <label>Middle name</label>
-                                    <label>{report?.meta?.middle_name}</label>
-                                </div>
-
-                                <div className="grid">
-                                    <label>Last name</label>
-                                    <label>{report?.meta?.last_name}</label>
-                                </div>
-
-                                <div className="grid">
-                                    <label>Gender</label>
-                                    <label>{report?.meta?.gender}</label>
-                                </div>
-
-                                <div className="grid">
-                                    <label>Date of birth</label>
-                                    <label>{report?.meta?.date_of_birth}</label>
+                                <div className="grid gap-5 md:grid-cols-3">
+                                    <InfoField label="First Name" value={meta?.first_name} />
+                                    <InfoField label="Middle Name" value={meta?.middle_name} />
+                                    <InfoField label="Last Name" value={meta?.last_name} />
+                                    <InfoField label="Gender" value={meta?.gender} />
+                                    <InfoField label="Date of Birth" value={meta?.date_of_birth} />
                                 </div>
                             </div>
 
-                            <div className="my-2 mt-4 border-b">Personal</div>
-
-                            <div className="grid gap-5 md:grid-cols-2">
-                                <div className="grid">
-                                    <label>RESIDENTIAL ADDRESS</label>
-                                    <label>{report?.meta?.home_address}</label>
+                            {/* Personal */}
+                            <div>
+                                <div className="text-lg font-semibold mb-2 border-b pb-1">
+                                    Personal
                                 </div>
-                                <div className="grid">
-                                    <label>City</label>
-                                    <label>{report?.meta?.city}</label>
+                                <div className="grid gap-5 md:grid-cols-2">
+                                    <InfoField label="Residential Address" value={meta?.home_address} />
+                                    <InfoField label="City" value={meta?.city} />
                                 </div>
                             </div>
 
-                            <div className="my-2 mt-4 border-b">School</div>
-
-                            <div className="grid gap-5 md:grid-cols-3">
-                                <div className="grid">
-                                    <label>SCHOOL NAME</label>
-                                    <label>{report?.meta?.school_name}</label>
+                            {/* School */}
+                            <div>
+                                <div className="text-lg font-semibold mb-2 border-b pb-1">
+                                    School
                                 </div>
-
-                                <div className="grid">
-                                    <label>PRESENT CLASS</label>
-                                    <label>{report?.meta?.present_class}</label>
-                                </div>
-
-                                <div className="grid">
-                                    <label>ADMISSION DATE</label>
-                                    <label>
-                                        {report?.meta?.admission_date}
-                                    </label>
+                                <div className="grid gap-5 md:grid-cols-3">
+                                    <InfoField label="School Name" value={meta?.school_name} />
+                                    <InfoField label="Present Class" value={meta?.present_class} />
+                                    <InfoField label="Admission Date" value={meta?.admission_date} />
                                 </div>
                             </div>
 
-                            <div className="my-2 mt-4 border-b">
-                                PARENT/GUARDIAN
-                            </div>
-
-                            <div className="grid gap-5 md:grid-cols-3">
-                                <div className="grid">
-                                    <label>PHONE NUMBER</label>
-                                    <label>{report?.meta?.phone}</label>
+                            {/* Guardian */}
+                            <div>
+                                <div className="text-lg font-semibold mb-2 border-b pb-1">
+                                    Parent / Guardian
+                                </div>
+                                <div className="grid gap-5 md:grid-cols-3">
+                                    <InfoField label="Phone Number" value={meta?.phone} />
                                 </div>
                             </div>
 
-                            <div className="my-1 border-b">Origin</div>
-                            <Fi />
+                            {/* Origin */}
+                            <RecordLocation report={report} sl={sl} />
                         </div>
                     </div>
                 </div>
             </div>
         </AuthenticatedLayout>
+    );
+}
+
+// Reusable Info Field Component
+function InfoField({ label, value }) {
+    return (
+        <div className="grid text-sm">
+            <label className="text-gray-500 uppercase text-xs font-semibold tracking-wide">{label}</label>
+            <div className="text-gray-900">{value || '—'}</div>
+        </div>
     );
 }

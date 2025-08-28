@@ -252,13 +252,22 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
           setStatusMessage("Enrollment successful");
 
+
+        setSuccess('Photo enrolled successfully!');
+
+        setTimeout(()=>{
+
           window.location.href=route('records.edit',{id: report?.id});
+          setUploading(false);
+          setLoading(false);
+        
+        },4000);
+
         }else{
 
           setStatusMessage(response?.data?.message);
-        }
-  
-        setSuccess('Photo enrolled successfully!');
+
+        setSuccess(response?.data?.message||'Photo enrollement failed!');
 
         setTimeout(()=>{
 
@@ -266,6 +275,8 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
           setLoading(false);
         
         },4000);
+        }
+
 
       } catch (error) {
         if (error.response && error.response.status === 422) {

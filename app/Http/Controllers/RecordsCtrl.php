@@ -75,4 +75,12 @@ class RecordsCtrl extends Controller
         return redirect()->back()->with('success', 'Record Updated successfully.'); 
     }
 
+    public function destroy(Student $record)
+    {
+        $record->delete();
+        return back()->with('success', 'Record deleted successfully.');
+    }
+
+
+
 }
