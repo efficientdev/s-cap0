@@ -99,7 +99,7 @@ class JavaTemplateEnrollService
         return [
             'cmd'=>implode(' ',$cmd),
             'success' => true,
-            'status'=>$tee[1],
+            'status'=>($tee[1]??$tee[0])??'na',
             'message' => 'Enrollment successful.', 
             'verbose'=>$process->getOutput(),
             'outputTemplatePath' => $outputTemplate,

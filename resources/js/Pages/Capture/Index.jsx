@@ -246,8 +246,16 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
         console.log(response?.data);
 
-        if(response?.data?.output?.success){
+        if(response?.data?.output?.success && response?.data?.record){
           //redirect to id
+          let report=response?.data?.record;
+          
+          window.location.href=route(
+                                                            'records.edit',
+                                                            {
+                                                                id: report?.id,
+                                                            },
+                                                        );
         }
 
         /*
@@ -426,7 +434,7 @@ return response()->json([
               //onClick={retakePhoto}
               className="bg-white px-6 py-2 rounded shadow text-blue-500 text-lg"
             >
-              Enroll
+              Add Details
             </button>
             <button
               onClick={retakePhotoAndClose}

@@ -112,7 +112,7 @@ class CaptureCtrl extends Controller
                 $c->save();
 
 
-                Student::create([
+                $record=Student::create([
                     'photo' => asset("storage/captures/{$imagePath}"),
                     'user_id'=>$request->user()->id,
                     'subject_id'=>$templateId,
@@ -121,7 +121,8 @@ class CaptureCtrl extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'output' => $output
+                    'output' => $output,
+                    'record'=>$record
                 ]);
             } catch (\Exception $e) {
 
