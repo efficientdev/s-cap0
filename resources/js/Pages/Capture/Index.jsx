@@ -241,6 +241,17 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
         console.log(response?.data);
 
+        if(response?.data?.output?.success){
+          //redirect to id
+        }
+
+        /*
+return response()->json([
+                    'status' => 'success',
+                    'output' => $output
+                ]);
+        */
+
         setSuccess('Photo enrolled successfully!');
       } catch (error) {
         if (error.response && error.response.status === 422) {

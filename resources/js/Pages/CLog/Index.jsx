@@ -26,10 +26,11 @@ export default function Index({report}) {
 <hr/>
 <>
 {report?.data?.map((item,i)=>{
-    return (<div key={i}>
+    return (<div className="my-5" key={i}>
 
+        {JSON.stringify(item,null,2)}<br/>
         {Array.isArray(item?.notes) && item?.notes?.map((nitem,ni)=>{
-            return (<div key={ni}>
+            return (<div className="my-1" key={ni}>
             {JSON.stringify(nitem,null,2)}
             <hr/>
             </div>);

@@ -4,18 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class StatesAndLgas extends Model
 {
-    //meta
+    //
 
     protected $fillable = [
-        'subject_id',
-        'meta',
-        'user_id',
-        'photo'
+        'state_name',
+        'lgas', 
     ];
 
     protected $casts = [  
-        'meta' => 'array', 
+        'lgas' => 'array', 
     ];
 }

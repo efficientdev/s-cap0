@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\CaptureLog;
+use App\Models\{CaptureLog,Student};
 use Illuminate\Support\Facades\Storage;
 use App\IdUtils\{IdStudent,EnrolStudent};
 use Str;
@@ -34,6 +34,8 @@ class CaptureCtrl extends Controller
         $path = $request->file('photo')->store('captures', 'public');
         $file = $request->file('photo');
         $path2 =  $file->store('', 'external'); 
+
+
 
 		/*$probe=$request->photo->hashName(); 
 		$status=null;
@@ -108,6 +110,14 @@ class CaptureCtrl extends Controller
                 $outputs[]=$output;
                 $c->notes=$outputs;
                 $c->save();
+
+
+                Student::create([
+                    'photo' => asset("storage/{$imagePath}"),
+                    'user_id'=>$request->user()->id,
+                    'subject_id'=>$templateId,
+                ]);
+
 
                 return response()->json([
                     'status' => 'success',

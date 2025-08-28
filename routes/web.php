@@ -7,7 +7,7 @@ use Inertia\Inertia;
 
 use App\Models\User;
 
-use App\Http\Controllers\{CaptureCtrl,CaptureLogCtrl};
+use App\Http\Controllers\{CaptureCtrl,CaptureLogCtrl,StateCtrl,RecordsCtrl};
 
 Route::get('/', function () {
     //dd(User::all());
@@ -19,6 +19,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::resource('records', RecordsCtrl::class)->names('records');
+
+Route::resource('states', StateCtrl::class)->names('statesl');
+//StateCtrl
 
 Route::get('/ev', function () {
     //dd(User::all());
@@ -36,9 +40,12 @@ Route::middleware(['auth'])->prefix('api')->group(function () {
 
 });
 
+Route::get('/dashboard', [RecordsCtrl::class,'index'])->middleware(['auth'])->name('dashboard');
+
+/*
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');*/
 
 
 Route::get('/capture', [CaptureCtrl::class,'index'])->middleware(['auth'])->name('capture');
