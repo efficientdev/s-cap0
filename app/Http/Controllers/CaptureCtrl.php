@@ -113,7 +113,7 @@ class CaptureCtrl extends Controller
 
 
                 Student::create([
-                    'photo' => asset("storage/{$imagePath}"),
+                    'photo' => asset("storage/captures/{$imagePath}"),
                     'user_id'=>$request->user()->id,
                     'subject_id'=>$templateId,
                 ]);

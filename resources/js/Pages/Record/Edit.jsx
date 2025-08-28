@@ -299,7 +299,7 @@ export default function ShowRecord({ sl, report }) {
                                 </div>
                             </form>
 
-                            {JSON.stringify({ report }, null, 2)}
+                            {/*JSON.stringify({ report }, null, 2)*/}
                         </div>
                     </div>
                 </div>

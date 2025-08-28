@@ -17,6 +17,11 @@ if (token) {
 }
 axios.defaults.withCredentials = true;
 
+(async ()=>{
+
+await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
+
+})();
 
 
 const Index = () => {
@@ -27,7 +32,7 @@ const Index = () => {
   const [streaming, setStreaming] = useState(false);
   const [stream, setStream] = useState(null);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [statusMessage, setStatusMessage] = useState('Loading...');
 
 
@@ -332,10 +337,11 @@ return response()->json([
     startCamera(devices[nextIndex].deviceId);
   };
 
+//
   return (
     <div>
       <OverlaySpinner isVisible={loading} message={statusMessage} />
-      <div className="fixed inset-0 bg-gray-400 z-50 flex items-center justify-center">
+      <div className={`${loading?'hidden':'fixed'} z-50  inset-0 bg-gray-400 flex items-center justify-center`}>
         
         {/*<div className="absolute z-1 right-3 top-6 w-full flex justify-end gap-4 px-4"> 
             <a href={route('dashboard')}
