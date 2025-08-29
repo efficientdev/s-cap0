@@ -147,6 +147,14 @@ export default function AuthenticatedLayout({ header, children }) {
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
+                    <div className="space-y-1 pb-3 pt-2">
+                        <ResponsiveNavLink
+                            href={route('capture')}
+                            active={route().current('capture')} 
+                        >
+                            Capture
+                        </ResponsiveNavLink>
+                    </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
                         <div className="px-4">
@@ -159,9 +167,9 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>
+                            {/*<ResponsiveNavLink href={route('profile.edit')}>
                                 Profile
-                            </ResponsiveNavLink>
+                            </ResponsiveNavLink>*/}
                             <ResponsiveNavLink
                                 method="post"
                                 href={route('logout')}
