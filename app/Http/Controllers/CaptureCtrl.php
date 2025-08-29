@@ -102,7 +102,14 @@ class CaptureCtrl extends Controller
 
 
                 if ($output['success']) { 
-                    $c->status="success";
+                    $c->status="success"; 
+
+                    $record=Student::create([
+                        'photo' => asset("storage/captures/{$imagePath}"),
+                        'user_id'=>$request->user()->id,
+                        'subject_id'=>$templateId,
+                    ]); 
+
                 }else{
                     $c->status="failed";
                 }
@@ -110,13 +117,6 @@ class CaptureCtrl extends Controller
                 $outputs[]=$output;
                 $c->notes=$outputs;
                 $c->save();
-
-
-                $record=Student::create([
-                    'photo' => asset("storage/captures/{$imagePath}"),
-                    'user_id'=>$request->user()->id,
-                    'subject_id'=>$templateId,
-                ]);
 
 
                 return response()->json([

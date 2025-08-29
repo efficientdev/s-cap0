@@ -96,13 +96,29 @@ class JavaTemplateEnrollService
             ];
         }
 
-        return [
-            'cmd'=>implode(' ',$cmd),
-            'success' => true,
-            'status'=>($tee[1]??$tee[0])??'na',
-            'message' => 'Enrollment successful.', 
-            'verbose'=>$process->getOutput(),
-            'outputTemplatePath' => $outputTemplate,
-        ];
+        if (count($tee)==1) {
+            # code...
+
+            return [
+                'cmd'=>implode(' ',$cmd),
+                'success' => true,
+                'status'=>($tee[1]??$tee[0])??'na',
+                'message' => 'Enrollment successful.', 
+                'verbose'=>$process->getOutput(),
+                'outputTemplatePath' => $outputTemplate,
+            ];
+
+        }else{
+            return [
+                'cmd'=>implode(' ',$cmd),
+                'success' => false,
+                'status'=>$tee[1],
+                'message' => 'Enrollment unsuccessful',
+                'error'=> $process->getErrorOutput(),
+                'verbose'=>$process->getOutput(),
+                'outputTemplatePath' => null,
+            ];
+        }
+
     }
 }

@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/react';
 import { useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-export default function ShowRecord({ sl, report }) {
+export default function ShowRecord({ sl, report, schools,classes }) {
     const { data, setData, patch, processing, errors, reset } = useForm({
         ...report?.meta,
     });
@@ -170,8 +170,30 @@ export default function ShowRecord({ sl, report }) {
 
                                 <div className="grid gap-5 md:grid-cols-3">
                                     <div className="grid">
-                                        <label>SCHOOL NAME</label>
-                                        <input
+                                        <label>SCHOOL NAME</label> 
+                                        <select
+                                            required
+                                            onChange={(e) => {
+                                                let w = e.target.value; 
+                                                setData('school_id', w);
+                                            }}
+                                            defaultValue={
+                                                report?.meta?.school_id
+                                            }
+                                        >
+
+                                            <option value="">
+                                                Select school ..{' '}
+                                            </option>
+                                            {Object.keys(schools)?.map((x, n) => {
+                                                return (
+                                                    <option key={n} value={x}>
+                                                        {schools[x]?.name}
+                                                    </option>
+                                                );
+                                            })}
+                                        </select>
+                                        {/*<input
                                             defaultValue={
                                                 report?.meta?.school_name
                                             }
@@ -181,12 +203,35 @@ export default function ShowRecord({ sl, report }) {
                                                 let w = e.target.value;
                                                 setData('school_name', w);
                                             }}
-                                        />
+                                        />*/}
                                     </div>
 
                                     <div className="grid">
                                         <label>PRESENT CLASS</label>
-                                        <input
+                                        
+
+                                        <select
+                                            required
+                                            onChange={(e) => {
+                                                let w = e.target.value; 
+                                                setData('class_list_id', w);
+                                            }}
+                                            defaultValue={
+                                                report?.meta?.class_list_id
+                                            }
+                                        >
+                                            <option value="">
+                                                Select class ..{' '}
+                                            </option>
+                                            {Object.keys(classes)?.map((x, n) => {
+                                                return (
+                                                    <option key={n} value={x}>
+                                                        {classes[x]?.name}
+                                                    </option>
+                                                );
+                                            })}
+                                        </select>
+                                        {/*<input
                                             defaultValue={
                                                 report?.meta?.present_class
                                             }
@@ -196,7 +241,7 @@ export default function ShowRecord({ sl, report }) {
                                                 let w = e.target.value;
                                                 setData('present_class', w);
                                             }}
-                                        />
+                                        />*/}
                                     </div>
 
                                     <div className="grid">

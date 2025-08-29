@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\{CaptureLog,Student,StatesAndLgas};
+use App\Models\{CaptureLog,Student,StatesAndLgas,School,ClassList};
 use Illuminate\Support\Facades\Storage;
 use App\IdUtils\{IdStudent,EnrolStudent};
 use Str;
@@ -38,12 +38,20 @@ class RecordsCtrl extends Controller
 	    	->first();
 	    $data['sl']=StatesAndLgas::get()->keyBy('id');
 
+        $data['schools']=School::get()->keyBy('id');
+        $data['classes']=ClassList::get()->keyBy('id');
+
+
+
         return Inertia::render('Record/Show', $data);
     }
 
 	public function edit(Request $request,$id): Response
     {
 	    $data['sl']=StatesAndLgas::get()->keyBy('id');
+
+        $data['schools']=School::get()->keyBy('id');
+        $data['classes']=ClassList::get()->keyBy('id');
 	    
     	$data['report']=Student::where('user_id',$request->user()->id)
     		->where('id',$id)
@@ -55,12 +63,15 @@ class RecordsCtrl extends Controller
 	public function update(Request $request,$id)
     {
 
+       
         $validator = Validator::make($request->all(), [ 
             'first_name'            => 'required',
             'middle_name'           => 'required',  
             'last_name'           => 'required',  
             'state_id'            => 'required',
             'lga_id'           => 'required',  
+            'school_id'           => 'required',  
+            'class_list_id'           => 'required',  
         ]);
 
     	$meta=$request->all();

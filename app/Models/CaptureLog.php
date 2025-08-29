@@ -12,6 +12,14 @@ class CaptureLog extends Model
         'capture_path',
         'status','notes','user_id'
     ];
+    /**
+     * The user who made the payment.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
     protected $casts = [ 
         //'status' => 'array', 

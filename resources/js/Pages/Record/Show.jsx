@@ -2,7 +2,7 @@ import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
-function RecordLocation({ report, sl }) {
+function RecordLocation({ report, sl, schools,classes }) {
     const state = sl[report?.meta?.state_id];
     const lga = state?.lgas?.[report?.meta?.lga_id];
 
@@ -81,8 +81,17 @@ export default function ShowRecord({ sl, report }) {
                                     School
                                 </div>
                                 <div className="grid gap-5 md:grid-cols-3">
-                                    <InfoField label="School Name" value={meta?.school_name} />
+                                    {/*<InfoField label="School Name" value={meta?.school_name} />
                                     <InfoField label="Present Class" value={meta?.present_class} />
+
+                                    */}
+
+                                    <InfoField label="School Name" value={schools[report?.meta?.school_id]?.name} />
+                                    <InfoField label="Present Class" value={classes[report?.meta?.class_list_id]?.name} />
+
+                                    
+                                        
+
                                     <InfoField label="Admission Date" value={meta?.admission_date} />
                                 </div>
                             </div>
