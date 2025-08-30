@@ -20,8 +20,8 @@ function RecordLocation({ report, sl }) {
     const lga = state?.lgas?.[report?.meta?.lga_id];
     return (
         <div className="flex flex-col md:flex-row gap-2 md:items-center">
-            <div>State: {state?.state_name || 'N/A'}</div>
-            <div>LGA: {lga || 'N/A'}</div>
+            <div> {state?.state_name || 'N/A'} State,</div>
+            <div> {lga || 'N/A'} LGA</div>
         </div>
     );
 }
@@ -123,7 +123,9 @@ export default function IndexRecord({ reports, sl }) {
                                                 )}
                                             </td>
                                             <td className="px-4 py-3 text-gray-900">
-                                                <RecordDetails report={report} sl={sl} />
+                                            {report?.meta?.custom_id||'na'}
+{/*
+                                                <RecordDetails report={report} sl={sl} />*/}
                                             </td>
                                             <td className="px-4 py-3 text-gray-900">
                                                 <RecordName meta={report.meta} />
@@ -175,7 +177,8 @@ export default function IndexRecord({ reports, sl }) {
                                             </div>
                                         )}
                                         <div className="flex-1">
-                                            <RecordName meta={report.meta} />
+                                            {/*<RecordName meta={report.meta} />*/}
+                                            {report?.meta?.custom_id||'na'}
                                             <div className="text-sm text-gray-500">
                                                 {formatDate(report.created_at)}
                                             </div>
@@ -183,16 +186,17 @@ export default function IndexRecord({ reports, sl }) {
                                     </div>
                                     <div className="mb-2">
                                         <strong>Details:</strong>
-                                        <div className="text-sm">
+                                        <div className="text-sm">{/*report?.meta?.custom_id||'na'}<br/>*/}
+
                                             <RecordDetails report={report} sl={sl} />
                                         </div>
                                     </div>
-                                    <div className="mb-2">
+                                    {/*<div className="mb-2">
                                         <strong>Location:</strong>
                                         <div className="text-sm">
                                             {report.meta && <RecordLocation report={report} sl={sl} />}
                                         </div>
-                                    </div>
+                                    </div>*/}
                                     <div className="mt-3 flex gap-4 text-sm">
                                         <Link
                                             href={route('records.show', {

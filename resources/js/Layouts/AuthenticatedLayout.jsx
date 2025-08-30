@@ -17,11 +17,19 @@ export default function AuthenticatedLayout({ header, children }) {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
-                            {/*<div className="flex shrink-0 items-center">
+                            <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
-                            </div>*/}
+                                <img
+          alt="Edo State Government"
+          height="115"
+          width="140"
+          className="inline-block w-5 h-5 mb-5 ml-3"
+          src="https://medu.edostategov.com.ng/v1/img/logo2.jpg"
+          title="Edo State Government"
+        />
+                                    {/*<ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                               */} </Link>
+                            </div>
 {/*sm:-my-px sm:ms-10*/}
                             <div className="hidden space-x-8  sm:flex">
                                 <NavLink

@@ -2,7 +2,7 @@ import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
-function RecordLocation({ report, sl, schools,classes }) {
+function RecordLocation({ report, sl }) {
     const state = sl[report?.meta?.state_id];
     const lga = state?.lgas?.[report?.meta?.lga_id];
 
@@ -17,7 +17,7 @@ function RecordLocation({ report, sl, schools,classes }) {
     );
 }
 
-export default function ShowRecord({ sl, report }) {
+export default function ShowRecord({ sl,schools, report, classes }) {
     const meta = report?.meta;
 
     return (

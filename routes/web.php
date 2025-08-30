@@ -7,7 +7,7 @@ use Inertia\Inertia;
 
 use App\Models\User;
 
-use App\Http\Controllers\{CaptureCtrl,CaptureLogCtrl,StateCtrl,RecordsCtrl};
+use App\Http\Controllers\{CaptureCtrl,CaptureLogCtrl,StateCtrl,RecordsCtrl,Statel,Lgal};
 
 Route::get('/', function () {
     //dd(User::all());
@@ -22,6 +22,8 @@ Route::get('/', function () {
 Route::resource('records', RecordsCtrl::class)->names('records');
 
 Route::resource('states', StateCtrl::class)->names('statesl');
+Route::resource('state2', Statel::class);//->names('statesl');
+Route::resource('lga2', Lgal::class);//->names('statesl');
 //StateCtrl
 
 Route::get('/ev', function () {
