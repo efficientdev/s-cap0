@@ -9,13 +9,11 @@ axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 const token = document.head.querySelector('meta[name="csrf-token"]');
 
+axios.defaults.withCredentials = true;
+
 console.log(token);
 if (token) {
   axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-  console.error('CSRF token not found');
-}
-axios.defaults.withCredentials = true;
 
 (async ()=>{
 
@@ -23,6 +21,9 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
 })();
 
+} else {
+  console.error('CSRF token not found');
+}
 
 const Index = () => {
   const videoRef = useRef(null);
@@ -55,7 +56,7 @@ const Index = () => {
       setDevices(videoDevices);
     });
 
-
+/*
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 const token = document.head.querySelector('meta[name="csrf-token"]');
@@ -67,7 +68,7 @@ if (token) {
   console.error('CSRF token not found');
 }
 axios.defaults.withCredentials = true;
-
+*/
 (async ()=>{
 
 await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie

@@ -122,7 +122,7 @@ class CaptureCtrl extends Controller
                 return response()->json([
                     'status' => 'success',
                     'output' => $output,
-                    'record'=>$record
+                    'record'=>$record??null
                 ]);
             } catch (\Exception $e) {
 
