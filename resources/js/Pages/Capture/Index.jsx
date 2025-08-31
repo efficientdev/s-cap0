@@ -266,6 +266,8 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
         }else{
 
+        alert(response?.data?.output?.message||'Photo enrollement failed!');
+
           setStatusMessage(response?.data?.message);
 
         setSuccess(response?.data?.message||'Photo enrollement failed!');
@@ -443,12 +445,12 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
             >
               Retake Photo
             </button>
-            <button
+            {/*<button
               //onClick={retakePhoto}
               className="bg-white px-6 py-2 rounded shadow text-blue-500 text-lg"
             >
               Add Details
-            </button>
+            </button>*/}
             <button
               onClick={retakePhotoAndClose}
               className="bg-red-600 px-6 py-2 rounded shadow text-white text-lg"
