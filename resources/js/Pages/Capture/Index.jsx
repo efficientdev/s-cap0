@@ -253,8 +253,9 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
           setStatusMessage("Enrollment successful");
 
+        alert('Face enrolled successfully!');
 
-        setSuccess('Photo enrolled successfully!');
+        setSuccess('Face enrolled successfully!');
 
         setTimeout(()=>{
 
