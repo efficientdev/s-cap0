@@ -92,6 +92,8 @@ class CaptureCtrl extends Controller
         if ($result['success']) { 
             $c->status="success";
 
+            $outputs[]=$result;
+
             try {
                 $service2 = new \App\Services\JavaTemplateEnrollService();
                 $output = $service2->enroll(
@@ -100,6 +102,8 @@ class CaptureCtrl extends Controller
                     $templateId
                 );
 
+                $record=null;
+                /*
 
                 if ($output['success']) { 
                     $c->status="success"; 
@@ -112,11 +116,13 @@ class CaptureCtrl extends Controller
 
                 }else{
                     $c->status="failed";
-                }
+                }*/
 
                 $outputs[]=$output;
                 $c->notes=$outputs;
                 $c->save();
+
+                
 
 
                 return response()->json([
