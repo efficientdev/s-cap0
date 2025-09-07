@@ -83,26 +83,37 @@ class JavaTemplateEnrollService
         $process->run();
         
         $tee=explode('Status:', $process->getOutput());
+ 
 
         if (!$process->isSuccessful()) {
             return [
                 'cmd'=>implode(' ',$cmd),
                 'success' => false,
-                'status'=>$tee[1],
+                'status'=>$tee[1]??'other error',
                 'message' => 'Enrollment unsuccessful',
                 'error'=> $process->getErrorOutput(),
                 'verbose'=>$process->getOutput(),
                 'outputTemplatePath' => null,
             ];
+        }else{
+            return [
+                'cmd'=>implode(' ',$cmd),
+                'success' => true,
+                'status'=>'successful',
+                //'status'=>($tee[1]??$tee[0])??'na',
+                'message' => 'Enrollment successful.', 
+                'verbose'=>$process->getOutput(),
+                'outputTemplatePath' => $outputTemplate,
+            ];
         }
 
-        if (count($tee)==1 && !empty($tee)) {
+        /*if (count($tee)==1 && !empty($tee)) {
             # code...
 
             return [
                 'cmd'=>implode(' ',$cmd),
                 'success' => true,
-                'status'=>($tee[1]??$tee[0])??'na',
+                //'status'=>($tee[1]??$tee[0])??'na',
                 'message' => 'Enrollment successful.', 
                 'verbose'=>$process->getOutput(),
                 'outputTemplatePath' => $outputTemplate,
@@ -118,7 +129,7 @@ class JavaTemplateEnrollService
                 'verbose'=>$process->getOutput(),
                 'outputTemplatePath' => null,
             ];
-        }
+        }*/
 
     }
 }
