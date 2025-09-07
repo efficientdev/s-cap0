@@ -96,7 +96,7 @@ class JavaTemplateEnrollService
             ];
         }
 
-        if (count($tee)==1) {
+        if (count($tee)==1 && !empty($tee)) {
             # code...
 
             return [
@@ -112,7 +112,7 @@ class JavaTemplateEnrollService
             return [
                 'cmd'=>implode(' ',$cmd),
                 'success' => false,
-                'status'=>$tee[1],
+                'status'=>$tee[1]??'',
                 'message' => 'Enrollment unsuccessful',
                 'error'=> $process->getErrorOutput(),
                 'verbose'=>$process->getOutput(),

@@ -408,14 +408,14 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
                 onClick={capturePhoto}
                 className="bg-white text-blue-500 px-6 py-2 rounded shadow-lg text-lg"
               >
-                Capture Photo
+                Capture 
               </button>
               {devices.length > 1 && (
                 <button
                   onClick={switchCamera}
                   className="bg-gray-700 text-white px-6 py-2 rounded shadow text-lg"
                 >
-                  Switch Camera
+                  Switch 
                 </button>
               )}
               <a href={route('dashboard')}
