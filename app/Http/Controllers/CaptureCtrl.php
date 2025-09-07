@@ -103,7 +103,7 @@ class CaptureCtrl extends Controller
                 );
 
                 $record=null;
-                /*
+                
 
                 if ($output['success']) { 
                     $c->status="success"; 
@@ -116,7 +116,7 @@ class CaptureCtrl extends Controller
 
                 }else{
                     $c->status="failed";
-                }*/
+                }
 
                 $outputs[]=$output;
                 $c->notes=$outputs;
@@ -126,7 +126,7 @@ class CaptureCtrl extends Controller
 
 
                 return response()->json([
-                    'status' => 'success',
+                    'status' => $c->status,
                     'output' => $output,
                     'record'=>$record??null
                 ]);
