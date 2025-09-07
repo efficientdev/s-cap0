@@ -62,7 +62,12 @@ class Student extends Model
 
         static::saving(function ($model) {
 
+            try{
+
             $r=$model->meta;
+            if ($r!=null && !empty($r) ) {
+                    # code...
+
             //if (isset($r['custom_id'])) {
 
                 $sl=StatesAndLgas::get()->keyBy('id');
@@ -90,6 +95,11 @@ class Student extends Model
                     $model->school_id = Auth::user()->school_id;
                 }
             }*/
+            
+                }
+        }catch(\Exception $e){
+
+        }
         });
     }
 

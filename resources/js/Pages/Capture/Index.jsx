@@ -169,7 +169,7 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
     }
 
     setImageUrl(null);
-    setImagePath(null);
+    //setImagePath(null);
     setCaptured(false);
     setLoading(false);
     //startCamera();
