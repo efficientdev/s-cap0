@@ -64,42 +64,37 @@ class Student extends Model
 
             try{
 
-            $r=$model->meta;
-            if ($r!=null && !empty($r) ) {
-                    # code...
+                $r=$model->meta;
+                if ($r!=null && !empty($r) ) {
+                        # code...
 
-            //if (isset($r['custom_id'])) {
+                //if (isset($r['custom_id'])) {
 
-                $sl=StatesAndLgas::get()->keyBy('id');
-                $s=$r['state_id'];
+                    $sl=StatesAndLgas::get()->keyBy('id');
+                    $s=$r['state_id'];
 
-                $st=$sl[$s];
-                $l=$st['lgas'][$r['lga_id']];
+                    $st=$sl[$s];
+                    $l=$st['lgas'][$r['lga_id']];
 
-                $s1=StateList::where('name',$st->state_name)->first();
-                $s2=LgaList::where('lga_name',$l??'')->first();
+                    $s1=StateList::where('name',$st->state_name)->first();
+                    $s2=LgaList::where('lga_name',$l??'')->first();
 
-                $r['custom_id']=Student::formatCustomCode(
-                    $s1->abbreviation??strtoupper(substr($st->state_name, 0, 2))??'',
-                    $s2->abbreviations??strtoupper(substr($l, 0, 3))??'',
-                    $r['school_id'],
-                    $r['last_name'],
-                    $r['first_name'],
-                    $r['date_of_birth'],
-                    $model->id??0
-                );
-                $model->meta=$r;
-            /*}
-            if (Auth::check()) {
-                if (empty($model->school_id)) {
-                    $model->school_id = Auth::user()->school_id;
+                    $r['custom_id']=Student::formatCustomCode(
+                        $s1->abbreviation??strtoupper(substr($st->state_name, 0, 2))??'',
+                        $s2->abbreviations??strtoupper(substr($l, 0, 3))??'',
+                        $r['school_id'],
+                        $r['last_name'],
+                        $r['first_name'],
+                        $r['date_of_birth'],
+                        $model->id??0
+                    );
+                    $model->meta=$r;
+             
+
                 }
-            }*/
-            
-                }
-        }catch(\Exception $e){
+            }catch(\Exception $e){
 
-        }
+            }
         });
     }
 
