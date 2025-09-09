@@ -267,11 +267,14 @@ await axios.get('/sanctum/csrf-cookie'); // Set CSRF token cookie
 
         }else{
 
-        alert(response?.data?.output?.message||'Photo enrollement failed!');
+        let errM1=response?.data?.output?.message||'Photo enrollement failed!';
+        let errM2=response?.data?.output?.status||'';
 
-          setStatusMessage(response?.data?.message);
+        alert(`${errM2} ${errM1}`);
 
-        setSuccess(response?.data?.message||'Photo enrollement failed!');
+          setStatusMessage(`${errM2} ${errM1}`);
+
+        setSuccess(`${errM2} ${errM1}`);
 
         setTimeout(()=>{
 

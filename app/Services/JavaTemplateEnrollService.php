@@ -89,7 +89,7 @@ class JavaTemplateEnrollService
             return [
                 'cmd'=>implode(' ',$cmd),
                 'success' => false,
-                'status'=>$tee[1]??'other error',
+                'status'=>$tee[1]??'Unknown error, contact Administrator',
                 'message' => 'Enrollment unsuccessful',
                 'error'=> $process->getErrorOutput(),
                 'verbose'=>$process->getOutput(),

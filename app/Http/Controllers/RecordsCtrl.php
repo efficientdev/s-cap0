@@ -83,7 +83,7 @@ class RecordsCtrl extends Controller
 	    	$data['report']->save();
 
         //return Inertia::render('Record/Edit', $data);
-        return redirect()->back()->with('success', 'Record Updated successfully.'); 
+        return back()->with('success', 'Record Updated successfully.'); 
     }
 
     public function destroy(Student $record)
